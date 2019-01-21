@@ -13,10 +13,16 @@ class TodoListViewController: UITableViewController {
     
     var itemArray = ["Find Mike", "Buy Eggos", "Destroy Demogorgon"]
     
+    //TODO: Setup UserDefaults
+    let defaults = UserDefaults.standard
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view, typically from a nib.
         
+        if let items = defaults.array(forKey: "ToDoListArray") as? [String] {
+            itemArray = items
+        }
         
     }
     
@@ -65,6 +71,10 @@ class TodoListViewController: UITableViewController {
             
             //TODO: Add the new item to itemArray
             self.itemArray.append(textField.text!)
+            
+            //TODO: Save the newly added item to UserDefaults (key is for identifying)
+            self.defaults.set(self.itemArray, forKey: "ToDoListArray")
+            
             //TODO: reload tableView to view the newly added item
             self.tableView.reloadData()
         }
